@@ -7,55 +7,55 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-public class VerifyUser extends HttpServlet {
-
+public class ShowUnactivatedCustomers extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.setContentType("text/html;charset=UTF-8");
         PrintWriter out=response.getWriter();
         
-        //request read
-        String email=request.getParameter("email");
-        String password=request.getParameter("password");
-        String utype=request.getParameter("utype");
-        
-        //process
-        
-        if(utype.equals("admin")){
-            if(email.equals("admin@ssi.com") && password.equals("ssi")){
-                //out.println("Welcome Admin");
-                //send the admin to his dashboard
-                response.sendRedirect("admindashboard.jsp");
-            }else{
-                out.println("Invalid Admin Account");
-            }
-        }else
-            //user type is either customer or owner
-            try{
-            String sql="select * from users where email=? and password=? and utype=? and status='activated'";
+        out.println("<html>");
+        out.println("<body>");
+        out.println("<h3>Customers Who Applied For Account<h3>");
+        out.println("<hr>");
+        out.println("<table border=2>");
+        out.println("<tr>");
+        out.println("<th align=left>Email</th>");
+        out.println("<th align=left>Name</th>");
+        out.println("<th align=left>Address</th>");
+        out.println("<th align=left>Mobile</th>");
+        out.println("<tr>");
+        String sql="select * from users where utype='customer' and status='applied'";
+        try{
             Connection con=mypkg.Util.connect();
             PreparedStatement ps=con.prepareStatement(sql);
-            ps.setString(1, email);
-            ps.setString(2, password);
-            ps.setString(3, utype);
             ResultSet rs=ps.executeQuery();
-            boolean found=rs.next();
-            if(found){
-                if(utype.equals("owner")){
-                    response.sendRedirect("ownerdashboard.jsp");
-                }else{
-                    response.sendRedirect("customerdashboard.jsp");
-                }
-            }else{
-                out.println("Invalid User Details Or Account Is Not Yet Activated");
+            while(rs.next()){
+                String email=rs.getString("email");
+                String name=rs.getString("name");
+                String address=rs.getString("hno")+","+rs.getString("street")+","+rs.getString("city")+","+rs.getString("state");
+                String mobile=rs.getString("mobile");        
+                out.println("<tr>");
+                out.println("<td>"+email+"</td>");
+                out.println("<td>"+name+"</td>");
+                out.println("<td>"+address+"</td>");
+                out.println("<td>"+mobile+"</td>");
+                out.println("<td><a href=ChangeStatus>Activate</a></td>");
+                out.println("</tr>");
             }
-            con.close();
-            }catch(Exception e){
-                e.printStackTrace();
-            }
+            out.println("</table>");
+            out.println("<hr>");
+            out.println("<a href=admindashboard.jsp>Admin-Dashboard</a>");
+            out.println("</body>");
+            out.println("</html>");
             
+            con.close();
+        }catch(Exception e){
+            out.println(e);
         }
+        
+        
+        out.close();
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
