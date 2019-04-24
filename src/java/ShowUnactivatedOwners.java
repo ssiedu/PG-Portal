@@ -7,7 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-public class ShowUnactivatedCustomers extends HttpServlet {
+public class ShowUnactivatedOwners extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -15,7 +15,7 @@ public class ShowUnactivatedCustomers extends HttpServlet {
         
         out.println("<html>");
         out.println("<body>");
-        out.println("<h3>Customers Who Applied For Account<h3>");
+        out.println("<h3>Property Onwners Who Applied For Account<h3>");
         out.println("<hr>");
         out.println("<table border=2>");
         out.println("<tr>");
@@ -24,7 +24,7 @@ public class ShowUnactivatedCustomers extends HttpServlet {
         out.println("<th align=left>Address</th>");
         out.println("<th align=left>Mobile</th>");
         out.println("<tr>");
-        String sql="select * from users where utype='customer' and status='applied'";
+        String sql="select * from users where utype='owner' and status='applied'";
         try{
             Connection con=mypkg.Util.connect();
             PreparedStatement ps=con.prepareStatement(sql);
@@ -39,7 +39,7 @@ public class ShowUnactivatedCustomers extends HttpServlet {
                 out.println("<td>"+name+"</td>");
                 out.println("<td>"+address+"</td>");
                 out.println("<td>"+mobile+"</td>");
-                out.println("<td><a href=ChangeCustomerStatus?id="+email+">Activate</a></td>");
+                out.println("<td><a href=ChangeOwnerStatus?id="+email+">Activate</a></td>");
                 out.println("</tr>");
             }
             out.println("</table>");

@@ -2,7 +2,7 @@
     <body>
         <h3>Welcome Customer</h3>
         <hr>
-            Links For Customers
+        <a href="ShowAllProperties">View-All-Properties</a>
         <hr>
     </body>
 </html>

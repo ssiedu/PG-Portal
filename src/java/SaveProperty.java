@@ -2,59 +2,55 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-public class ShowUnactivatedCustomers extends HttpServlet {
+
+public class SaveProperty extends HttpServlet {
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out=response.getWriter();
-        
-        out.println("<html>");
-        out.println("<body>");
-        out.println("<h3>Customers Who Applied For Account<h3>");
-        out.println("<hr>");
-        out.println("<table border=2>");
-        out.println("<tr>");
-        out.println("<th align=left>Email</th>");
-        out.println("<th align=left>Name</th>");
-        out.println("<th align=left>Address</th>");
-        out.println("<th align=left>Mobile</th>");
-        out.println("<tr>");
-        String sql="select * from users where utype='customer' and status='applied'";
+        String email=request.getParameter("email");
+        String ptype=request.getParameter("ptype");
+        String ftype=request.getParameter("ftype");
+        String fdesc=request.getParameter("fdesc");
+        String rent=request.getParameter("rent");
+        String ctype=request.getParameter("ctype");
+        String hno=request.getParameter("hno");
+        String street=request.getParameter("street");
+        String city=request.getParameter("city");
+        String state=request.getParameter("state");
+        String sql="insert into property(email,ptype,ftype,fdesc,rent,ctype,hno,street,city,state,status) values(?,?,?,?,?,?,?,?,?,?,'vacant')";
         try{
             Connection con=mypkg.Util.connect();
             PreparedStatement ps=con.prepareStatement(sql);
-            ResultSet rs=ps.executeQuery();
-            while(rs.next()){
-                String email=rs.getString("email");
-                String name=rs.getString("name");
-                String address=rs.getString("hno")+","+rs.getString("street")+","+rs.getString("city")+","+rs.getString("state");
-                String mobile=rs.getString("mobile");        
-                out.println("<tr>");
-                out.println("<td>"+email+"</td>");
-                out.println("<td>"+name+"</td>");
-                out.println("<td>"+address+"</td>");
-                out.println("<td>"+mobile+"</td>");
-                out.println("<td><a href=ChangeCustomerStatus?id="+email+">Activate</a></td>");
-                out.println("</tr>");
-            }
-            out.println("</table>");
-            out.println("<hr>");
-            out.println("<a href=admindashboard.jsp>Admin-Dashboard</a>");
+            ps.setString(1,email);
+            ps.setString(2,ptype);
+            ps.setString(3,ftype);
+            ps.setString(4,fdesc);
+            ps.setInt(5,Integer.parseInt(rent));
+            ps.setString(6,ctype);
+            ps.setString(7,hno);
+            ps.setString(8,street);
+            ps.setString(9,city);
+            ps.setString(10,state);
+            ps.executeUpdate();
+            con.close();
+
+            out.println("<html>");
+            out.println("<body>");
+            out.println("<h3>Property Added</h3>");
+            out.println("<h5><a href=propertyentry.jsp>Add-More</a></h5>");
+            out.println("<h5><a href=ownerdashboard.jsp>Owner-Dashboard</a></h5>");
             out.println("</body>");
             out.println("</html>");
-            
-            con.close();
         }catch(Exception e){
             out.println(e);
         }
-        
-        
-        out.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
