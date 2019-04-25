@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class VerifyUser extends HttpServlet {
 
@@ -19,6 +20,8 @@ public class VerifyUser extends HttpServlet {
         String email=request.getParameter("email");
         String password=request.getParameter("password");
         String utype=request.getParameter("utype");
+        
+        HttpSession session=request.getSession();
         
         //process
         
@@ -42,6 +45,7 @@ public class VerifyUser extends HttpServlet {
             ResultSet rs=ps.executeQuery();
             boolean found=rs.next();
             if(found){
+                session.setAttribute("userid", email);
                 if(utype.equals("owner")){
                     response.sendRedirect("ownerdashboard.jsp");
                 }else{

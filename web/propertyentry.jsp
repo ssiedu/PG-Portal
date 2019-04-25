@@ -5,7 +5,6 @@
         <hr>
         <form action="SaveProperty" method="post">
             <pre>
-            Email       <input type="text" name="email"/>
             Prop-Type   <select name="ptype"/>
                             <option>Room</option>
                             <option>Flat</option>

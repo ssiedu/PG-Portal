@@ -6,15 +6,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class SaveProperty extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        //reading email from session
+        HttpSession session=request.getSession();
+        String email=(String) session.getAttribute("userid");
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out=response.getWriter();
-        String email=request.getParameter("email");
         String ptype=request.getParameter("ptype");
         String ftype=request.getParameter("ftype");
         String fdesc=request.getParameter("fdesc");
