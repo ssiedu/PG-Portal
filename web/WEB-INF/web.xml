@@ -32,6 +32,18 @@
         <servlet-name>ShowOwnProperty</servlet-name>
         <servlet-class>ShowOwnProperty</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowAllProperties</servlet-name>
+        <servlet-class>ShowAllProperties</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ShowProperty</servlet-name>
+        <servlet-class>ShowProperty</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeStatus</servlet-name>
+        <servlet-class>ChangeStatus</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SaveUser</servlet-name>
         <url-pattern>/SaveUser</url-pattern>
@@ -63,6 +75,18 @@
     <servlet-mapping>
         <servlet-name>ShowOwnProperty</servlet-name>
         <url-pattern>/ShowOwnProperty</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowAllProperties</servlet-name>
+        <url-pattern>/ShowAllProperties</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowProperty</servlet-name>
+        <url-pattern>/ShowProperty</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeStatus</servlet-name>
+        <url-pattern>/ChangeStatus</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

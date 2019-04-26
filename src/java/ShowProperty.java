@@ -10,19 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ShowOwnProperty extends HttpServlet {
+public class ShowProperty extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String prtype=request.getParameter("ptype");
+        String city=request.getParameter("city");
+        String sql = "select pcode,ptype,ftype,fdesc,rent,ctype,hno,street,city,state,status from property where ptype=? and city=? and status='vacant'";
+        
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-        HttpSession session = request.getSession();
-        String email = (String) session.getAttribute("userid");
-
-        String sql = "select pcode,ptype,ftype,fdesc,rent,ctype,hno,street,city,state,status from property where email=?";
         out.println("<html><body>");
-        out.println("<h3>Your Property Details</h3>");
+        out.println("<h3>Search-Result</h3>");
         out.println("<hr>");
         out.println("<table border=2>");
         out.println("<tr>");
@@ -37,7 +38,8 @@ public class ShowOwnProperty extends HttpServlet {
         try {
             Connection con = mypkg.Util.connect();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, email);
+            ps.setString(1,prtype);
+            ps.setString(2,city);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 String pcode = rs.getString(1);
@@ -56,7 +58,7 @@ public class ShowOwnProperty extends HttpServlet {
                 out.println("<td>"+rent+"</td>");
                 out.println("<td>"+address+"</td>");
                 out.println("<td>"+status+"</td>");
-                out.println("<td><a href=ChangeStatus?code="+pcode+"&status="+status+">change</a></td>");
+                out.println("<td><a href=OwnerDetail?code="+pcode+">owner</a></td>");
                 out.println("</tr>");
             }
             out.println("</table>");
@@ -66,7 +68,8 @@ public class ShowOwnProperty extends HttpServlet {
         }
 
         out.println("<hr>");
-        out.println("<a href=ownerdashboard.jsp>Owner-Dashboard</a>");
+        out.println("<a href=searchform.jsp>Search-More</a><br>");
+        out.println("<a href=customerdashboard.jsp>Customer-Dashboard</a>");
         out.println("</body></html>");
 
     }

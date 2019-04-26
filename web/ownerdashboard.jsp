@@ -5,7 +5,7 @@
         <pre>
             <a href="propertyentry.jsp">Add-Property</a>
             <a href="ShowOwnProperty">View-Own-Properties</a>
-            <a href="">Change-Property-Status</a>
+            <a href="ShowOwnProperty">Change-Property-Status</a>
             <a href="">Remove-Property</a>
             <a href="">Update-Profile</a>
             <a href="">Inbox</a>
