@@ -8,7 +8,7 @@
             <a href="ShowOwnProperty">Change-Property-Status</a>
             <a href="">Remove-Property</a>
             <a href="">Update-Profile</a>
-            <a href="">Inbox</a>
+            <a href="ShowMeessages">Inbox</a>
             <a href="index.jsp">Logout</a>
         </pre>
         <hr>

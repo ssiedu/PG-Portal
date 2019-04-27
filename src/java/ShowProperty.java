@@ -58,7 +58,7 @@ public class ShowProperty extends HttpServlet {
                 out.println("<td>"+rent+"</td>");
                 out.println("<td>"+address+"</td>");
                 out.println("<td>"+status+"</td>");
-                out.println("<td><a href=OwnerDetail?code="+pcode+">owner</a></td>");
+                out.println("<td><a href=OwnerDetails?code="+pcode+">owner</a></td>");
                 out.println("</tr>");
             }
             out.println("</table>");
