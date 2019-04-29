@@ -8,62 +8,54 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class OwnerDetails extends HttpServlet {
+public class ShowMeessages extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        String code=request.getParameter("code");
-        String sql="select email,name,hno,street,city,state,mobile from users where email=(select email from property where pcode=?)";
-        try{
-            Connection con=mypkg.Util.connect();
-            PreparedStatement ps=con.prepareStatement(sql);
-            ps.setInt(1, Integer.parseInt(code));
-            ResultSet rs=ps.executeQuery();
-            rs.next();
-            String email=rs.getString(1);
-            String name=rs.getString(2);
-            String address=rs.getString(3)+","+rs.getString(4)+","+rs.getString(5)+","+rs.getString(6);
-            String mobile=rs.getString(7);
+        String email=(String)request.getSession().getAttribute("userid");
             out.println("<html>");
             out.println("<body>");
-            out.println("<h3>Owner-Details For PCode : "+code+"</h3>");
-            out.println("<hr>");
+            out.println("<h3>Inbox For : "+email+"</h3>");
             out.println("<table border=2>");
             out.println("<tr>");
-            out.println("<td>Name</td>");
-            out.println("<td>"+name+"</td>");
+            out.println("<th>MsgId</th>");
+            out.println("<th>Sender</th>");
+            out.println("<th>Message</th>");
+            out.println("<th>Date</th>");
             out.println("</tr>");
-            out.println("<tr>");
-            out.println("<td>Address</td>");
-            out.println("<td>"+address+"</td>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<td>Email</td>");
-            out.println("<td>"+email+"</td>");
-            out.println("</tr>");
-            out.println("<tr>");
-            out.println("<td>Mobile</td>");
-            out.println("<td>"+mobile+"</td>");
-            out.println("</tr>");
+            
+            try{
+                String sql="select * from messages where receipt=?";
+                Connection con=mypkg.Util.connect();
+                PreparedStatement ps=con.prepareStatement(sql);
+                ps.setString(1,email);
+                ResultSet rs=ps.executeQuery();
+                while(rs.next()){
+                String s1=rs.getString("msgid");
+                String s2=rs.getString("sender");
+                String s3=rs.getString("message");
+                String s4=rs.getString("mdate");
+                String s5=rs.getString("pcode");
+                out.println("<tr>");
+                out.println("<td>"+s1+"</td>");
+                out.println("<td>"+s2+"</td>");
+                out.println("<td>"+s3+"</td>");
+                out.println("<td>"+s4+"</td>");
+                out.println("<td><a href=PropertyDetails?code="+s5+">P-Details</a></td>");
+                out.println("</tr>");
+                }
+                con.close();
+            }catch(Exception e){
+                out.println(e);
+            }
             out.println("</table>");
             out.println("<hr>");
-            out.println("<a href=messageform.jsp?owneremail="+email+"&code="+code+">Send-Message</a><br>");
-            out.println("<a href=customerdashboard.jsp>Customer-Dashboard</a>");
+            out.println("<a href=ownerdashboard.jsp>OwnerPage</a>");
             out.println("</body>");
             out.println("</html>");
-            
-            
-            
-            con.close();
-        }catch(Exception e){
-            out.println(e);
         }
-
-        
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -102,5 +94,4 @@ public class OwnerDetails extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 }

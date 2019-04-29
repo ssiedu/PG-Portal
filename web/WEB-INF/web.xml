@@ -52,6 +52,14 @@
         <servlet-name>SaveMessage</servlet-name>
         <servlet-class>SaveMessage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowMeessages</servlet-name>
+        <servlet-class>ShowMeessages</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropertyDetails</servlet-name>
+        <servlet-class>PropertyDetails</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SaveUser</servlet-name>
         <url-pattern>/SaveUser</url-pattern>
@@ -103,6 +111,14 @@
     <servlet-mapping>
         <servlet-name>SaveMessage</servlet-name>
         <url-pattern>/SaveMessage</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowMeessages</servlet-name>
+        <url-pattern>/ShowMeessages</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropertyDetails</servlet-name>
+        <url-pattern>/PropertyDetails</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

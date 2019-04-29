@@ -16,11 +16,12 @@ public class SaveMessage extends HttpServlet {
         PrintWriter out = response.getWriter();
         String receipt=request.getParameter("messageto");
         String messagetext=request.getParameter("messagetext");
+        String code=request.getParameter("code");
         HttpSession session=request.getSession();
         String sender=(String)session.getAttribute("userid");
         java.util.Date dt=new java.util.Date();
         java.sql.Date sqldate=new java.sql.Date(dt.getTime());
-        String sql="insert into messages(sender,receipt,message,mdate) values(?,?,?,?)";
+        String sql="insert into messages(sender,receipt,message,mdate,pcode) values(?,?,?,?,?)";
         try{
             Connection con=mypkg.Util.connect();
             PreparedStatement ps=con.prepareStatement(sql);
@@ -28,6 +29,7 @@ public class SaveMessage extends HttpServlet {
             ps.setString(2,receipt);
             ps.setString(3,messagetext);
             ps.setDate(4, sqldate);
+            ps.setInt(5,Integer.parseInt(code));
             ps.executeUpdate();
             con.close();
             out.println("<html>");
