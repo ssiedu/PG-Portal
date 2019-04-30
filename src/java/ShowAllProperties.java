@@ -51,6 +51,7 @@ public class ShowAllProperties extends HttpServlet {
                 out.println("<td>"+rent+"</td>");
                 out.println("<td>"+address+"</td>");
                 out.println("<td>"+status+"</td>");
+                out.println("<td><img width=50 height=50 src=\"ImageLoader?code="+pcode+"\"/></td>");
                 out.println("</tr>");
             }
             out.println("</table>");

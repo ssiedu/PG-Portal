@@ -60,6 +60,14 @@
         <servlet-name>PropertyDetails</servlet-name>
         <servlet-class>PropertyDetails</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>StoreProperty</servlet-name>
+        <servlet-class>StoreProperty</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ImageLoader</servlet-name>
+        <servlet-class>ImageLoader</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SaveUser</servlet-name>
         <url-pattern>/SaveUser</url-pattern>
@@ -119,6 +127,14 @@
     <servlet-mapping>
         <servlet-name>PropertyDetails</servlet-name>
         <url-pattern>/PropertyDetails</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StoreProperty</servlet-name>
+        <url-pattern>/StoreProperty</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImageLoader</servlet-name>
+        <url-pattern>/ImageLoader</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

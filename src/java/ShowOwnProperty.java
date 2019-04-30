@@ -56,6 +56,7 @@ public class ShowOwnProperty extends HttpServlet {
                 out.println("<td>"+rent+"</td>");
                 out.println("<td>"+address+"</td>");
                 out.println("<td>"+status+"</td>");
+                out.println("<td><a href=ImageLoader?code="+pcode+">photo</a>");
                 out.println("<td><a href=ChangeStatus?code="+pcode+"&status="+status+">change</a></td>");
                 out.println("</tr>");
             }

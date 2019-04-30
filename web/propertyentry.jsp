@@ -3,7 +3,7 @@
         <h3>Paying-Guest-Portal</h3>
         <h4>Property-Registration</h4>
         <hr>
-        <form action="SaveProperty" method="post">
+        <form action="StoreProperty" method="post" enctype="multipart/form-data">
             <pre>
             Prop-Type   <select name="ptype"/>
                             <option>Room</option>
@@ -39,6 +39,7 @@
                         <option>MH</option>
                         <option>UP</option>
                         </select> 
+            Picture     <input type="file" name="pimg"/>         
                         <input type="submit" value="Save-Details"/>
             </pre>
         </form>    
